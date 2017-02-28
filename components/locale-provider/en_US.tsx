@@ -36,4 +36,8 @@ export default {
   Select: {
     notFoundContent: 'Not Found',
   },
+  Upload: {
+    uploading: 'Uploading...',
+    removeFile: 'Remove file',
+  },
 };

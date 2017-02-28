@@ -4,7 +4,7 @@ import UploadList from './uploadList';
 import getFileItem from './getFileItem';
 import classNames from 'classnames';
 import assign from 'object-assign';
-import { UploadProps } from './interface';
+import { UploadProps, UploadLocale } from './interface';
 
 function T() {
   return true;
@@ -51,6 +51,11 @@ function genPercentAdd() {
   };
 }
 
+const defaultLocale: UploadLocale = {
+  uploading: '文件上传中',
+  removeFile: '删除文件',
+};
+
 export { UploadProps };
 
 export function Dragger(props) {
@@ -88,6 +93,14 @@ export default class Upload extends React.Component<UploadProps, any> {
       fileList: this.props.fileList || this.props.defaultFileList || [],
       dragState: 'drop',
     };
+  }
+
+  getLocale() {
+    let locale = {};
+    if (this.context.antLocale && this.context.antLocale.Upload) {
+      locale = this.context.antLocale.Upload;
+    }
+    return assign({}, defaultLocale, locale, this.props.locale);
   }
 
   onStart = (file) => {
@@ -264,6 +277,7 @@ export default class Upload extends React.Component<UploadProps, any> {
         onRemove={this.handleManualRemove}
         showRemoveIcon={showRemoveIcon}
         showPreviewIcon={showPreviewIcon}
+        locale={this.getLocale()}
       />
     ) : null;
 

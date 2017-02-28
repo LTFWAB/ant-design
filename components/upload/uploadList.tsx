@@ -66,7 +66,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
   }
 
   render() {
-    const { prefixCls, items = [], listType, showPreviewIcon, showRemoveIcon } = this.props;
+    const { prefixCls, items = [], listType, showPreviewIcon, showRemoveIcon, locale } = this.props;
     const list = items.map(file => {
       let progress;
       let icon = <Icon type="paper-clip" />;
@@ -74,7 +74,7 @@ export default class UploadList extends React.Component<UploadListProps, any> {
       if (listType === 'picture' || listType === 'picture-card') {
         if (file.status === 'uploading' || (!file.thumbUrl && !file.url)) {
           if (listType === 'picture-card') {
-            icon = <div className={`${prefixCls}-list-item-uploading-text`}>Uploading...</div>;
+            icon = <div className={`${prefixCls}-list-item-uploading-text`}>{locale.uploading}</div>;
           } else {
             icon = <Icon className={`${prefixCls}-list-item-thumbnail`} type="picture" />;
           }
@@ -139,10 +139,10 @@ export default class UploadList extends React.Component<UploadListProps, any> {
         </a>
       ) : null;
       const removeIcon = showRemoveIcon ? (
-        <Icon type="delete" title="Remove file" onClick={() => this.handleClose(file)} />
+        <Icon type="delete" title={locale.removeFile} onClick={() => this.handleClose(file)} />
       ) : null;
       const removeIconCross = showRemoveIcon ? (
-        <Icon type="cross" title="Remove file" onClick={() => this.handleClose(file)} />
+        <Icon type="cross" title={locale.removeFile} onClick={() => this.handleClose(file)} />
       ) : null;
       const actions = (listType === 'picture-card' && file.status !== 'uploading')
         ? <span className={`${prefixCls}-list-item-actions`}>{previewIcon}{removeIcon}</span>
